@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       					   http://www.springframework.org/schema/beans/spring-beans.xsd
+						   http://www.springframework.org/schema/context
+						   http://www.springframework.org/schema/context/spring-context.xsd
+						   http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--<bean class="cn.itcast.spring.a_ioc.CustomerDao" id="customerDao3"/>-->
+    <context:component-scan base-package="cn.itcast.spring"/>
+    <!--<bean id="customerService" class="cn.itcast.spring.service.CustomerServiceImpl"/>-->
+    <!--&lt;!&ndash; 基于一般类（没有实现接口的类） &ndash;&gt;-->
+    <!--<bean id="productService" class="cn.itcast.spring.service.ProductService"/>-->
+    <aop:config>
+        <aop:pointcut id="myPoincut" expression="execution(* cn.itcast.spring.service.*.*(..))"/>
+        <!--<aop:pointcut id="myPointcut" expression="bean(*Service)"/>-->
+        <!--<aop:advisor advice-ref="timeLogInterceptor" pointcut="execution(* cn.itcast.spring.proxy.*.save(..))" />-->
+        <!--<aop:advisor advice-ref="timeLogInterceptor" pointcut="execution(* cn.itcast.spring.service.*.*())"/>-->
+        <aop:aspect ref="myAspect">
+            <!--<aop:before method="firstBefore" pointcut="execution(* cn.itcast.spring.service.*.*(..))"/>-->
+            <!--<aop:before method="firstBefore2" pointcut="execution(* cn.itcast.spring.service.*.*(..))"/>-->
+            <!--<aop:after-returning method="afterReturing" returning="returnVal" pointcut-ref="myPoincut"/>-->
+            <aop:around method="around"   pointcut-ref="myPoincut"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

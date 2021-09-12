@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       					   http://www.springframework.org/schema/beans/spring-beans.xsd
+						   http://www.springframework.org/schema/context
+						   http://www.springframework.org/schema/context/spring-context.xsd
+						   http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--<bean class="cn.itcast.spring.a_ioc.CustomerDao" id="customerDao3"/>-->
+    <context:component-scan base-package="cn.itcast.spring"/>
+    <aop:aspectj-autoproxy/>
+    <!--<bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">-->
+        <!--<property name="dataSource" ref="comboPooledDataSource"/>-->
+    <!--</bean>-->
+    <!--<bean class="com.mchange.v2.c3p0.ComboPooledDataSource"  id="comboPooledDataSource">-->
+        <!--&lt;!&ndash;<constructor-arg name="configName" value="otherc3p0"/>&ndash;&gt;-->
+    <!--</bean>-->
+    <bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
+        <property name="dataSource" ref="setComboPooledDataSource11"/>
+    </bean>
+    <bean class="cn.itcast.spring.Mapepr.BookMapper" id="bookMapper">
+        <property name="dataSource" ref="setComboPooledDataSource11"/>
+    </bean>
+</beans>

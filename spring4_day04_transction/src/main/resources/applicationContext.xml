@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       					   http://www.springframework.org/schema/beans/spring-beans.xsd
+						   http://www.springframework.org/schema/context
+						   http://www.springframework.org/schema/context/spring-context.xsd
+						   http://www.springframework.org/schema/aop
+                           http://www.springframework.org/schema/aop/spring-aop.xsd
+                                  http://www.springframework.org/schema/tx
+                        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="cn.itcast.spring"/>
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="dataSource">
+        <property name="driverClass" value="${jdbc.driverClass}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.userName}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+    <bean class="cn.itcast.spring.dao.AccountDaoImpl" id="accountDao">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="dataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!--<tx:advice id="txAdvice" transaction-manager="dataSourceTransactionManager">-->
+        <!--&lt;!&ndash;配置事务的属性定义&ndash;&gt;-->
+        <!--<tx:attributes>-->
+            <!--<tx:method name="transfer" isolation="DEFAULT" propagation="REQUIRED" timeout="-1" read-only="false" />-->
+            <!--<tx:method name="save*"/>-->
+            <!--<tx:method name="update*"/>-->
+            <!--<tx:method name="delete*"/>-->
+            <!--<tx:method name="find*" read-only="true"/>-->
+        <!--</tx:attributes>-->
+    <!--</tx:advice>-->
+    <!--<aop:config>-->
+
+        <!--<aop:advisor advice-ref="txAdvice" pointcut="bean(*Service)"/>-->
+    <!--</aop:config>-->
+
+<bean class="cn.itcast.spring.dao.Car" id="car">
+    <property name="name" value="凯迪拉克"/>
+    <property name="id" value="123"/>
+</bean>
+    <tx:annotation-driven/>
+<bean class="cn.itcast.spring.dao.UserDao" id="userDao">
+    <property name="stringArray1">
+    <array>
+        <value>1</value>
+        <value>3</value>
+        <value>2</value>
+    </array>
+    </property>
+</bean>
+</beans>
