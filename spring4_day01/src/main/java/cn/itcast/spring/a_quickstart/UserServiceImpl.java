@@ -22,5 +22,6 @@ public class UserServiceImpl implements IUserService{
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         IUserDao userDao1 = (IUserDao) ac.getBean("userDao");
         userDao.findByUsernameAndPassword();
+        //加了一行注释
 	}
 }
